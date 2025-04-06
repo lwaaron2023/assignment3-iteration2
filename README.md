@@ -4,8 +4,8 @@
 This assignment is to be done in the same homework group of two as in the previous assignment.
 
 **Enter both of your names below. If we cannot figure out who did the assignment, we cannot grade it!**
-### Name: 
-### Name: 
+### Name: Aaron Waller
+### Name: Haotian Liu
 ---
 ## Assignment Details
 * Use Webstorm to clone this repository on your computer.
