@@ -1,7 +1,10 @@
 import {useState} from "react"
+import {addRequestToQueue, id, request} from "./Requests.tsx";
 
 
-export default function Form() {
+
+//Uses id to coordinate with requestlist
+export default function Form({num}:id) {
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [priority, setPriority] = useState("Low")
@@ -10,26 +13,51 @@ export default function Form() {
     const [requestedEquipment, setRequestedEquipment] = useState("")
     const [otherInput, setOtherInput] = useState("")
     const [status, setStatus] = useState("Unassigned")
-    const [output, setOutput] = useState<string[]>([])
+    //const [output, setOutput] = useState<string[]>([])
     function handleSubmit() {
-        setOutput(["Selections:","first name: "+firstName, "last name: " + lastName, "priority: " + priority, "department: " + departmentName, "hospital: " + hospitalLocation, "requested equipment: " + requestedEquipment, "other: " + otherInput, "status: "+status])
+        //setOutput(["Selections:","first name: "+firstName, "last name: " + lastName, "priority: " + priority, "department: " + departmentName, "hospital: " + hospitalLocation, "requested equipment: " + requestedEquipment, "other: " + otherInput, "status: "+status])
+        if(requestedEquipment === "other"){
+            const r: request = {
+                firstName: firstName,
+                lastName: lastName,
+                priority: priority,
+                departmentName: departmentName,
+                hospitalLocation: hospitalLocation,
+                requestedEquipment: otherInput,
+                status: status
+            }
+            addRequestToQueue(r, num)
+        }
+        else{
+            const r: request = {
+                firstName: firstName,
+                lastName: lastName,
+                priority: priority,
+                departmentName: departmentName,
+                hospitalLocation: hospitalLocation,
+                requestedEquipment: requestedEquipment,
+                status: status
+            }
+            addRequestToQueue(r, num)
+        }
     }
 
-    return(<div>
+    return(<div className={"Form"}>
+        <div style={{display: "inline-block", paddingTop:".5em", paddingBottom:".5em"}}>
         <label htmlFor={"firstName"} style={{paddingRight:".5em"}}>First Name:</label>
         <input onChange={(e)=>{
             setFirstName(e.target.value)
         }} id={"firstName"} type={"text"}></input>
-        <br/>
-        <br/>
+        </div>
 
+        <div style={{display: "inline-block", paddingTop:".5em", paddingBottom:".5em"}}>
         <label htmlFor={"lastName"} style={{paddingRight:".5em"}}>Last Name:</label>
         <input onChange={(e)=>{
             setLastName(e.target.value)
         }} id={"lastName"} type={"text"}></input>
-        <br/>
-        <br/>
+        </div>
 
+        <div style={{display: "inline-block", paddingTop:".5em", paddingBottom:".5em"}}>
         <label htmlFor={"priority"} style={{paddingRight:".5em"}}>Priority:</label>
         <select id = "priority" onChange={(e)=>{setPriority(e.target.value)}}>
             <option value ={"Low"} selected={true}>Low</option>
@@ -37,16 +65,16 @@ export default function Form() {
             <option value ={"High"}>High</option>
             <option value ={"Emergency"}>Emergency</option>
         </select>
-        <br/>
-        <br/>
+        </div>
 
+        <div style={{display: "inline-block", paddingTop:".5em", paddingBottom:".5em"}}>
         <label htmlFor={"department"} style={{paddingRight:".5em"}}>Department:</label>
         <input onChange={(e)=>{
             setDepartmentName(e.target.value)
         }} id={"department"} type={"text"} style={{paddingLeft:".5em"}}></input>
-        <br/>
-        <br/>
+        </div>
 
+        <div style={{display: "inline-block", paddingTop:".5em", paddingBottom:".5em"}}>
         <label htmlFor={"hospital"} style={{paddingRight:".5em"}}>Hospital Location:</label>
         <select id = "hospital" onChange={(e)=>{setHospitalLocation(e.target.value)}}>
             <option value ={"Brigham & Women’s Hospital Main Campus"} selected={true}>Brigham & Women’s Hospital Main Campus</option>
@@ -54,10 +82,11 @@ export default function Form() {
             <option value ={"Faulkner Hospital"}>Faulkner Hospital</option>
             <option value ={"Patriot Place"}>Patriot Place</option>
         </select>
-        <br/>
-        <br/>
+        </div>
 
-        <ul  style={{listStyle: "none", margin:0, padding:0}} >
+        <div style={{display: "flex", flexDirection:"column", paddingTop:".5em", paddingBottom:".5em"}}>
+        <p style={{paddingTop:".5em", paddingBottom:".5em", textAlign:"left"}}>Requested Equipment:</p>
+        <ul  style={{listStyle: "none", margin:0, padding:0, display: "flex", flexDirection:"column", alignContent:"flex-start", textAlign:"left"}} >
             <li>
                 <input type={"radio"} onChange={(e)=>{setRequestedEquipment(e.target.value)}} name={"equipment"} value={"Defibrillator"} id={"defib"}></input>
                 <label htmlFor={"defib"}>Defibrillator</label>
@@ -84,8 +113,9 @@ export default function Form() {
                 <input type={"textarea"} onChange={(e)=>{setOtherInput(e.target.value)}}></input>
             </li>
         </ul>
-        <br/>
+        </div>
 
+        <div style={{display: "inline-block", paddingTop:".5em", paddingBottom:".5em"}}>
         <label htmlFor={"status"} style={{paddingRight:".5em"}}>Status:</label>
         <select id = "status" onChange={(e)=>{setStatus(e.target.value)}}>
             <option value ={"Unassigned"} selected={true}>Unassigned</option>
@@ -93,8 +123,8 @@ export default function Form() {
             <option value ={"Working"}>Working</option>
             <option value ={"Done"}>Done</option>
         </select>
-        <br/>
-        <br/>
+        </div>
+
         <button type={"submit"} onClick={handleSubmit}>Submit</button>
 
     </div>)

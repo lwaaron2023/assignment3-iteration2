@@ -40,3 +40,25 @@
 .read-the-docs {
   color: #888;
 }
+
+.Form{
+  color: #aaaaaa;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 2em;
+}
+
+.RequestList{
+  color: #bbbbbb;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 2em;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  text-align: left;
+  color: #cccccc;
+}
