@@ -1,10 +1,10 @@
 import {useState} from "react"
-import {addRequestToQueue, id, request} from "./Requests.tsx";
+import {request, callback} from "../globalConstants.ts";
 
 
 
 //Uses id to coordinate with requestlist
-export default function Form({num}:id) {
+export default function Form({func}:callback) {
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [priority, setPriority] = useState("Low")
@@ -15,6 +15,7 @@ export default function Form({num}:id) {
     const [status, setStatus] = useState("Unassigned")
     //const [output, setOutput] = useState<string[]>([])
     function handleSubmit() {
+        console.log("submitting request")
         //setOutput(["Selections:","first name: "+firstName, "last name: " + lastName, "priority: " + priority, "department: " + departmentName, "hospital: " + hospitalLocation, "requested equipment: " + requestedEquipment, "other: " + otherInput, "status: "+status])
         if(requestedEquipment === "other"){
             const r: request = {
@@ -26,7 +27,7 @@ export default function Form({num}:id) {
                 requestedEquipment: otherInput,
                 status: status
             }
-            addRequestToQueue(r, num)
+            func(r)
         }
         else{
             const r: request = {
@@ -38,7 +39,7 @@ export default function Form({num}:id) {
                 requestedEquipment: requestedEquipment,
                 status: status
             }
-            addRequestToQueue(r, num)
+            func(r)
         }
     }
 
