@@ -1,11 +1,8 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/z2hqB6bT)
-# Assignment 3 - React Form
-*DUE: Friday, April 11 by 11:59pm. There is a 10 point penalty for submitting the assignment by Saturday, April 12 at 11:59pm.
-This assignment is to be done in the same homework group of two as in the previous assignment.
 
-**Enter both of your names below. If we cannot figure out who did the assignment, we cannot grade it!**
+# Assignment 3 - React Form
+
 ### Name: Aaron Waller
-### Name: Haotian Liu
+
 ---
 ## Assignment Details
 * Use Webstorm to clone this repository on your computer.
