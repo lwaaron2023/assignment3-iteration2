@@ -9,6 +9,41 @@ export type request = {
 }
 
 export interface callback {
-    value:request|undefined,
+    value:any,
     func:any,
+}
+
+export interface inputComponent{
+    call:callback,
+    id:string,
+    value?:string,
+    text?:string,
+    type?:string,
+}
+
+export interface selectComponent{
+    call:callback,
+    id:string,
+    values:string[],
+    texts:string[],
+    selected:boolean[],
+    mainText?:string,
+}
+
+export interface menu{
+    call:callback,
+    name:string,
+    type:string,
+    ids:string[],
+    values:string[],
+    texts:string[],
+}
+
+export interface menuComponent{
+    call:callback,
+    menu:menu,
+    value:string,
+    id:string,
+    text:string,
+    type:string
 }

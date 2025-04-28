@@ -1,6 +1,8 @@
 import {useState} from "react"
 import {request, callback} from "../globalConstants.ts";
-
+import Input from "./Input.tsx";
+import Select from "./Select.tsx";
+import Menu from "./Menu.tsx";
 
 
 //Uses id to coordinate with requestlist
@@ -44,89 +46,13 @@ export default function Form({func}:callback) {
     }
 
     return(<div className={"Form"}>
-        <div style={{display: "inline-block", paddingTop:".5em", paddingBottom:".5em"}}>
-        <label htmlFor={"firstName"} style={{paddingRight:".5em"}}>First Name:</label>
-        <input onChange={(e)=>{
-            setFirstName(e.target.value)
-        }} id={"firstName"} type={"text"}></input>
-        </div>
-
-        <div style={{display: "inline-block", paddingTop:".5em", paddingBottom:".5em"}}>
-        <label htmlFor={"lastName"} style={{paddingRight:".5em"}}>Last Name:</label>
-        <input onChange={(e)=>{
-            setLastName(e.target.value)
-        }} id={"lastName"} type={"text"}></input>
-        </div>
-
-        <div style={{display: "inline-block", paddingTop:".5em", paddingBottom:".5em"}}>
-        <label htmlFor={"priority"} style={{paddingRight:".5em"}}>Priority:</label>
-        <select id = "priority" onChange={(e)=>{setPriority(e.target.value)}}>
-            <option value ={"Low"} selected={true}>Low</option>
-            <option value ={"Medium"}>Medium</option>
-            <option value ={"High"}>High</option>
-            <option value ={"Emergency"}>Emergency</option>
-        </select>
-        </div>
-
-        <div style={{display: "inline-block", paddingTop:".5em", paddingBottom:".5em"}}>
-        <label htmlFor={"department"} style={{paddingRight:".5em"}}>Department:</label>
-        <input onChange={(e)=>{
-            setDepartmentName(e.target.value)
-        }} id={"department"} type={"text"} style={{paddingLeft:".5em"}}></input>
-        </div>
-
-        <div style={{display: "inline-block", paddingTop:".5em", paddingBottom:".5em"}}>
-        <label htmlFor={"hospital"} style={{paddingRight:".5em"}}>Hospital Location:</label>
-        <select id = "hospital" onChange={(e)=>{setHospitalLocation(e.target.value)}}>
-            <option value ={"Brigham & Women’s Hospital Main Campus"} selected={true}>Brigham & Women’s Hospital Main Campus</option>
-            <option value ={"Chestnut Hill"}>Chestnut Hill</option>
-            <option value ={"Faulkner Hospital"}>Faulkner Hospital</option>
-            <option value ={"Patriot Place"}>Patriot Place</option>
-        </select>
-        </div>
-
-        <div style={{display: "flex", flexDirection:"column", paddingTop:".5em", paddingBottom:".5em"}}>
-        <p style={{paddingTop:".5em", paddingBottom:".5em", textAlign:"left"}}>Requested Equipment:</p>
-        <ul  style={{listStyle: "none", margin:0, padding:0, display: "flex", flexDirection:"column", alignContent:"flex-start", textAlign:"left"}} >
-            <li>
-                <input type={"radio"} onChange={(e)=>{setRequestedEquipment(e.target.value)}} name={"equipment"} value={"Defibrillator"} id={"defib"}></input>
-                <label htmlFor={"defib"}>Defibrillator</label>
-            </li>
-            <li>
-                <input type={"radio"} onChange={(e)=>{setRequestedEquipment(e.target.value)}} name={"equipment"} value={"Patient Monitor"} id={"patmon"}></input>
-                <label htmlFor={"patomon"}>Patient Monitor</label>
-            </li>
-            <li>
-                <input type={"radio"} onChange={(e)=>{setRequestedEquipment(e.target.value)}} name={"equipment"} value={"ECG Machine"} id={"ecg"}></input>
-                <label htmlFor={"ecg"}>ECG Machine</label>
-            </li>
-            <li>
-                <input type={"radio"} onChange={(e)=>{setRequestedEquipment(e.target.value)}} name={"equipment"} value={"Infusion Pump"} id={"inpu"}></input>
-                <label htmlFor={"inpu"}>Infusion Pump</label>
-            </li>
-            <li>
-                <input type={"radio"} onChange={(e)=>{setRequestedEquipment(e.target.value)}} name={"equipment"} value={"Ventilator"} id={"vent"}></input>
-                <label htmlFor={"vent"}>Ventilator</label>
-            </li>
-            <li>
-                <input type={"radio"} onChange={(e)=>{setRequestedEquipment(e.target.value)}} name={"equipment"} value={"other"} id={"other"}></input>
-                <label htmlFor={"other"} style={{paddingRight:".5em"}}>Other:</label>
-                <input type={"textarea"} onChange={(e)=>{setOtherInput(e.target.value)}}></input>
-            </li>
-        </ul>
-        </div>
-
-        <div style={{display: "inline-block", paddingTop:".5em", paddingBottom:".5em"}}>
-        <label htmlFor={"status"} style={{paddingRight:".5em"}}>Status:</label>
-        <select id = "status" onChange={(e)=>{setStatus(e.target.value)}}>
-            <option value ={"Unassigned"} selected={true}>Unassigned</option>
-            <option value ={"Assigned"}>Assigned</option>
-            <option value ={"Working"}>Working</option>
-            <option value ={"Done"}>Done</option>
-        </select>
-        </div>
-
+        <Input call={{value: firstName, func: setFirstName}} id={"firstName"} type={"text"} text={"First Name:"}/>
+        <Input call={{value: lastName, func: setLastName}} id={"lastName"} type={"text"} text={"Last Name:"}/>
+        <Select call={{value: priority, func: setPriority}} id={"priority"} mainText={"Priority:"} selected={[true, false, false, false]} texts={["Low","Medium","High","Emergency"]} values={["Low","Medium","High","Emergency"]}/>
+        <Input call={{value: departmentName, func: setDepartmentName}} id={"department"} type={"text"} text={"Department:"}/>
+        <Select call={{value: hospitalLocation, func: setHospitalLocation}} id={"hospital"} mainText={"Hospital Location:"} selected={[true, false, false, false]} texts={["Brigham & Women’s Hospital Main Campus","Chestnut Hill","Faulkner Hospital","Patriot Place"]} values={["Brigham & Women’s Hospital Main Campus","Chestnut Hill","Faulkner Hospital","Patriot Place"]}/>
+        <Menu call={{value: otherInput, func: setOtherInput}} menu={{call:{value: requestedEquipment, func: setRequestedEquipment}, name:"equipment", type:"radio", ids:["defib", "patmon","ecg","inpu","vent"], values:["Defibrillator","Patient Monitor","ECG Machine","Infusion Pump","Ventilator"], texts:["Defibrillator","Patient Monitor","ECG Machine","Infusion Pump","Ventilator"]}}  value={"other"} id={"other"} text={"Other:"} type={"textarea"}/>
+        <Select call={{value: status, func: setStatus}} id={"status"} mainText={"Status:"} selected={[true, false, false, false]} texts={["Unassigned","Assigned","Working","Done"]} values={["Unassigned","Assigned","Working","Done"]}/>
         <button type={"submit"} onClick={handleSubmit}>Submit</button>
-
     </div>)
 }
